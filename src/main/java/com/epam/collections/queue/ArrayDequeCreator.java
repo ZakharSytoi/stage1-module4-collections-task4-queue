@@ -7,37 +7,23 @@ import java.util.Queue;
 public class ArrayDequeCreator extends PriorityQueue<String> {
     public ArrayDeque<Integer> createArrayDeque(Queue<Integer> firstQueue, Queue<Integer> secondQueue) {
         ArrayDeque<Integer> resultDeque = new ArrayDeque<>();
-        if(firstQueue.poll() != null){
-            resultDeque.add(firstQueue.poll());
-        }
-        if(firstQueue.poll() != null){
-            resultDeque.add(firstQueue.poll());
-        }
-        if(secondQueue.poll() != null){
-            resultDeque.add(secondQueue.poll());
-        }
-        if(secondQueue.poll() != null){
-            resultDeque.add(secondQueue.poll());
-        }
+
+        resultDeque.add(firstQueue.poll());
+        resultDeque.add(firstQueue.poll());
+        resultDeque.add(secondQueue.poll());
+        resultDeque.add(secondQueue.poll());
+
         boolean flagMove = true;
-        while(firstQueue.poll() != null && secondQueue.poll() != null){
-            if(flagMove){
-                firstQueue.add(resultDeque.poll());
-                if(firstQueue.poll() != null){
-                    resultDeque.add(firstQueue.poll());
-                }
-                if(firstQueue.poll() != null){
-                    resultDeque.add(firstQueue.poll());
-                }
+        while (firstQueue.peek() != null || secondQueue.peek() != null) {
+            if (flagMove) {
+                firstQueue.add(resultDeque.pollLast());
+                resultDeque.add(firstQueue.poll());
+                resultDeque.add(firstQueue.poll());
                 flagMove = false;
-            }else {
-                secondQueue.add(resultDeque.poll());
-                if(secondQueue.poll() != null){
-                    resultDeque.add(secondQueue.poll());
-                }
-                if(secondQueue.poll() != null){
-                    resultDeque.add(secondQueue.poll());
-                }
+            } else {
+                secondQueue.add(resultDeque.pollLast());
+                resultDeque.add(secondQueue.poll());
+                resultDeque.add(secondQueue.poll());
                 flagMove = true;
             }
 
